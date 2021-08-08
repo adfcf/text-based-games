@@ -13,8 +13,4 @@ Info runGuess(const Player* const firstPlayer, const Player* const secondPlayer)
 
 Info runMinesweeper(const Player* const player);
 
-Info runDungeon(const Player* const player);
-
 Info runWhatIsMyAge(const Player* const player);
-
-Info runSnake(const Player* const player);

@@ -14,8 +14,6 @@ enum class Game {
     Guess,
     Minesweeper,
     WhatIsMyAge,
-    Dungeon,
-    Snake,
     None
 };
 
@@ -36,8 +34,6 @@ static Game getUserGamePick() {
         std::printf("[%d] - Hangman\n", Game::Hangman);
         std::printf("[%d] - Minesweeper\n", Game::Minesweeper);
         std::printf("[%d] - Guess\n", Game::Guess);
-        std::printf("[%d] - Dungeon\n", Game::Dungeon);
-        std::printf("[%d] - Snake\n", Game::Snake);
         std::printf("[%d] - What Is My Age?\n", Game::WhatIsMyAge);
         std::printf("[%d] - None\n", Game::None);
 
@@ -125,12 +121,6 @@ int main() {
             notYet();
             break;
         case Game::Minesweeper:
-            notYet();
-            break;
-        case Game::Snake:
-            notYet();
-            break;
-        case Game::Dungeon:
             notYet();
             break;
         case Game::WhatIsMyAge:
