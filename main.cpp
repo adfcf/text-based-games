@@ -13,7 +13,6 @@ enum class Game {
     Hangman,
     Guess,
     Minesweeper,
-    WhatIsMyAge,
     None
 };
 
@@ -22,6 +21,10 @@ static void header() {
     biggestDivision();
     std::cout << "TEXT-BASED GAMES!\n";
     biggestDivision();
+}
+
+static int availableGames() {
+    return static_cast<int>(Game::None);
 }
 
 static Game getUserGamePick() {
@@ -34,7 +37,6 @@ static Game getUserGamePick() {
         std::printf("[%d] - Hangman\n", Game::Hangman);
         std::printf("[%d] - Minesweeper\n", Game::Minesweeper);
         std::printf("[%d] - Guess\n", Game::Guess);
-        std::printf("[%d] - What Is My Age?\n", Game::WhatIsMyAge);
         std::printf("[%d] - None\n", Game::None);
 
         pick = inputInt();
@@ -75,7 +77,7 @@ static const Player* selectPlayer(const std::vector<Player>& registeredPlayers) 
     showRegisteredPlayers(registeredPlayers);
     int selectedPlayer{ 0 };
     do {
-        std::printf("Choose one [0-%d]: ", registeredPlayers.size() - 1);
+        std::printf("Choose one [0-%d]: ", static_cast<int>(registeredPlayers.size() - 1));
         selectedPlayer = inputInt();
     } while (selectedPlayer < 0 || selectedPlayer >= registeredPlayers.size());
     std::cout << registeredPlayers.at(selectedPlayer).name << " has been selected!\n";
@@ -90,11 +92,11 @@ int main() {
 
     header();
 
-    std::cout << "Welcome! There are many little text-based games here.\n";
+    std::cout << "Welcome! There are " << availableGames() << " little text-based games here.\n";
     std::cout << "Before you can play them, you need to register the players.\n";
 
     registeredPlayers.push_back(Player{ "Computer", 0, 'C'});
-    std::cout << "-> I've just registered myself as the Player 0, okay?\n\n";
+    std::cout << "\n- Just registered myself as the Player 0, okay?\n\n";
 
     registerPlayers(registeredPlayers);
     showRegisteredPlayers(registeredPlayers);
@@ -115,15 +117,14 @@ int main() {
             notYet();
             break;
         case Game::Guess:
-            notYet();
+            std::cout << "GUESS selected! Now choose the players who are going to play.\n";
+            bigDivision();
+            runGuess(selectPlayer(registeredPlayers), selectPlayer(registeredPlayers));
             break;
         case Game::Hangman:
             notYet();
             break;
         case Game::Minesweeper:
-            notYet();
-            break;
-        case Game::WhatIsMyAge:
             notYet();
             break;
         default:

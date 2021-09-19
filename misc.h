@@ -15,6 +15,7 @@ std::string inputStr(const char* message);
 std::string inputStr();
 
 // Screen related
+void header(const char* gameName);
 void smallDivision();
 void bigDivision();
 void biggestDivision();

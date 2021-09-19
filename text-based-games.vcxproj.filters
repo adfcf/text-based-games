@@ -24,6 +24,12 @@
     <ClCompile Include="tic_tac_toe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="battleship.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="guess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="misc.h">

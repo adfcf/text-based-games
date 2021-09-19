@@ -52,6 +52,12 @@ int nextInteger(int exclusiveMax) {
 	return nextInteger(0, exclusiveMax);
 }
 
+void header(const char* gameName) {
+	clearScreen();
+	std::cout << gameName << '\n';
+	bigDivision();
+}
+
 void smallDivision() {
 	std::cout << "-----------------\n";
 }

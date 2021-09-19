@@ -39,13 +39,6 @@ inline static bool isTaken(char board[3][3], int singleIndex) {
 	return board[toRow(singleIndex)][toColumn(singleIndex)] != Empty;
 }
 
-// Header of the game. It prints every time the game is updated.
-static void header() {
-	clearScreen();
-	std::cout << "Tic Tac Toe\n";
-	bigDivision();
-}
-
 // It draws only a portion of the board (i0, i1, i2 places); useful to show how the winner won the game.
 static void subdrawBoard(char board[3][3], int i0, int i1, int i2) {
 	for (int i = 0; i < 3; ++i) {
@@ -102,7 +95,7 @@ static void getInput(char board[3][3], const Player* const player) {
 
 }
 
-// Returns the symbol's ownwer
+// Returns the symbol's owner
 static const Player* whoHasThisSymbol(char symbol, const Player* const p1, const Player* const p2) {
 	if (p1->symbol == symbol) {
 		return p1;
@@ -180,7 +173,7 @@ Info runTicTacToe(const Player* const p1, const Player* const p2) {
 
 	do {
 
-		header();
+		header("Tic Tac Toe");
 
 		drawBoard(board);
 		getInput(board, turn);
@@ -188,7 +181,7 @@ Info runTicTacToe(const Player* const p1, const Player* const p2) {
 		winner = checkVictory(board, p1, p2);
 		if (winner != nullptr) { // A winner has been found.
 
-			header();
+			header("Tic Tac Toe");
 
 			VictorySet set{ findVictorySet(board) };
 			subdrawBoard(board, set.singleIndex0, set.singleIndex1, set.singleIndex2);
@@ -205,7 +198,7 @@ Info runTicTacToe(const Player* const p1, const Player* const p2) {
 			break;
 		} else if (isBoardComplete(board)) { // It's a draw.
 
-			header();
+			header("Tic Tac Toe");
 
 			drawBoard(board);
 			std::cout << "DRAW! Nobody wins.\n";
