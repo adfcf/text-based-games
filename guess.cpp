@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+// Guess game loop controller
 Info runGuess(const Player* const firstPlayer, const Player* const secondPlayer) {
 
 	Info info{ nullptr, nullptr };
@@ -15,7 +16,7 @@ Info runGuess(const Player* const firstPlayer, const Player* const secondPlayer)
 	const int b{ inputInt("Choose 'b': ") };
 
 	const int number{ nextInteger(a, b) };
-	std::cout << "\n- It was picked an integer number between "<< a << " and " << b << ". Who guesses it first wins!\n\n";
+	std::cout << "\n- It was picked an integer number between " << a << " and " << b << ". Who guesses it first wins!\n\n";
 
 	const Player* turn{ firstPlayer };
 	int guess{};
@@ -25,19 +26,16 @@ Info runGuess(const Player* const firstPlayer, const Player* const secondPlayer)
 		std::cout << turn->name << ", your guess: ";
 		if (!isComputer(turn)) {
 			guess = inputInt();
-		}
-		else {
+		} else {
 			guess = nextInteger(a, b);
 			std::cout << guess << '\n';
 		}
 
 		if (guess > number) {
 			std::cout << "it's a bit smaller...\n\n";
-		}
-		else if (guess < number) {
+		} else if (guess < number) {
 			std::cout << "it's a bit bigger...\n\n";
-		}
-		else {
+		} else {
 
 			std::cout << "THAT'S RIGHT! IT'S " << number << "\n";
 			std::cout << turn->name << " wins!\n";
