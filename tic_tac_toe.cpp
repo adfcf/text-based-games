@@ -7,6 +7,7 @@
 
 constexpr char Empty{ ' ' };
 
+// To store how the player won (the taken places that made them win)
 struct VictorySet {
 	int singleIndex0{ 0 };
 	int singleIndex1{ 0 };
@@ -19,7 +20,7 @@ inline static int toSingleIndex(int row, int column) {
 	return (row * 3) + column;
 }
 
-// Checks if singleIndex is in the range [0-8];
+// It checks if singleIndex is in the range [0-8];
 inline static bool isValidSingleIndex(int singleIndex) {
 	return (singleIndex >= 0 && singleIndex <= 8);
 }
@@ -34,7 +35,7 @@ inline static int toColumn(int singleIndex) {
 	return (singleIndex % 3);
 }
 
-// Checks if a place is already marked by other player
+// It checks if a place is already marked by other player
 inline static bool isTaken(char board[3][3], int singleIndex) {
 	return board[toRow(singleIndex)][toColumn(singleIndex)] != Empty;
 }
@@ -49,7 +50,7 @@ static void subdrawBoard(char board[3][3], int i0, int i1, int i2) {
 				std::cout << "   ";
 			}
 		}
-		std::cout << "\n";
+		std::cout << '\n';
 	}
 }
 
@@ -59,16 +60,17 @@ static void drawBoard(char board[3][3]) {
 		for (int j = 0; j < 3; ++j) {
 			std::cout << "[" << board[i][j] << "]";
 		}
-		std::cout << "\n";
+		std::cout << '\n';
 	}
 }
 
-// Collects input from a particular player or random generate it if the player is the computer itself.
+// It collects input from the current player or random generates it if the player is the computer itself.
 static void getInput(char board[3][3], const Player* const player) {
 	
-	std::cout << player->name << ", where will you place your symbol [0-9]: ";
 	int place{ 0 };
 	bool validMove{ false };
+
+	std::cout << player->name << ", where will you place your symbol [0-9]: ";
 
 	if (isComputer(player)) {
 		do {
@@ -95,18 +97,17 @@ static void getInput(char board[3][3], const Player* const player) {
 
 }
 
-// Returns the symbol's owner
+// It returns the symbol's owner
 static const Player* whoHasThisSymbol(char symbol, const Player* const p1, const Player* const p2) {
 	if (p1->symbol == symbol) {
 		return p1;
 	} else if (p2->symbol == symbol) {
 		return p2;
-	} else {
-		return nullptr;
 	}
+	return nullptr;
 }
 
-// Tests all the possibilities for victory and stores how it occurred in a VictorySet
+// It tests all the possibilities for victory and stores how it occurred in a VictorySet
 static VictorySet findVictorySet(char board[3][3]) {
 
 	// Horizontal tests
@@ -139,7 +140,7 @@ static VictorySet findVictorySet(char board[3][3]) {
 
 }
 
-// Returns the winner
+// It returns the winner
 static const Player* checkVictory(char board[3][3], const Player* const p1, const Player* const p2) {
 	VictorySet victorySet{ findVictorySet(board) };
 	if (victorySet.valid) {
@@ -148,7 +149,7 @@ static const Player* checkVictory(char board[3][3], const Player* const p1, cons
 	return nullptr;
 }
 
-// Tests if there is at least one available place at the board; useful to check for a draw
+// It tests if there is at least one available place at the board; useful to check for a draw
 static bool isBoardComplete(char board[3][3]) {
 	for (int i = 0; i < 3; ++i) {
 		for (int j = 0; j < 3; ++j) {
@@ -163,8 +164,10 @@ static bool isBoardComplete(char board[3][3]) {
 Info runTicTacToe(const Player* const p1, const Player* const p2) {
 	
 	Info info{ nullptr, nullptr };
+
 	const Player* winner{ nullptr };
 	const Player* turn{ p1 };
+
 	char board[3][3]{
 		{Empty, Empty, Empty},
 		{Empty, Empty, Empty},
@@ -196,6 +199,7 @@ Info runTicTacToe(const Player* const p1, const Player* const p2) {
 			info.loser = (winner == p1 ? p2 : p1);
 
 			break;
+
 		} else if (isBoardComplete(board)) { // It's a draw.
 
 			header("Tic Tac Toe");
@@ -204,8 +208,10 @@ Info runTicTacToe(const Player* const p1, const Player* const p2) {
 			std::cout << "DRAW! Nobody wins.\n";
 
 			break;
+
 		}
 
+		// otherwise, the game continues...
 		turn = (turn == p1 ? p2 : p1);
 
 	} while (true);
