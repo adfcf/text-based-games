@@ -40,8 +40,8 @@ std::string inputStr() {
 	return inputStr("");
 }
 
-bool isComputer(const Player* const player) {
-	return (player->id == 0);
+bool isComputer(const Player& player) {
+	return (player.id == 0);
 }
 
 int nextInteger(int inclusiveMin, int exclusiveMax) {

@@ -6,7 +6,7 @@
 #include <iostream>
 
 // Guess game loop controller
-Info runGuess(const Player* const firstPlayer, const Player* const secondPlayer) {
+Info runGuess(const Player& firstPlayer, const Player& secondPlayer) {
 
 	Info info{ nullptr, nullptr };
 
@@ -18,13 +18,13 @@ Info runGuess(const Player* const firstPlayer, const Player* const secondPlayer)
 	const int number{ nextInteger(a, b) };
 	std::cout << "\n- It was picked an integer number between " << a << " and " << b << ". Who guesses it first wins!\n\n";
 
-	const Player* turn{ firstPlayer };
+	const Player* turn{ &firstPlayer };
 	int guess{};
 
 	do {
 
 		std::cout << turn->name << ", your guess: ";
-		if (!isComputer(turn)) {
+		if (!isComputer(*turn)) {
 			guess = inputInt();
 		} else {
 			guess = nextInteger(a, b);
@@ -42,13 +42,13 @@ Info runGuess(const Player* const firstPlayer, const Player* const secondPlayer)
 			bigDivision();
 
 			info.winner = turn;
-			info.loser = (turn == firstPlayer ? secondPlayer : firstPlayer);
+			info.loser = &((turn == &firstPlayer) ? secondPlayer : firstPlayer);
 
 			break;
 
 		}
 
-		turn = (turn == firstPlayer ? secondPlayer : firstPlayer);
+		turn = &((turn == &firstPlayer) ? secondPlayer : firstPlayer);
 
 	} while (true);
 

@@ -65,12 +65,12 @@ static void drawBoard(char board[3][3]) {
 }
 
 // It collects input from the current player or random generates it if the player is the computer itself.
-static void getInput(char board[3][3], const Player* const player) {
+static void getInput(char board[3][3], const Player& player) {
 	
 	int place{ 0 };
 	bool validMove{ false };
 
-	std::cout << player->name << ", where will you place your symbol [0-9]: ";
+	std::cout << player.name << ", where will you place your symbol [0-8]: ";
 
 	if (isComputer(player)) {
 		do {
@@ -93,16 +93,16 @@ static void getInput(char board[3][3], const Player* const player) {
 		} while (!validMove);
 	}
 
-	board[toRow(place)][toColumn(place)] = player->symbol;
+	board[toRow(place)][toColumn(place)] = player.symbol;
 
 }
 
 // It returns the symbol's owner
-static const Player* whoHasThisSymbol(char symbol, const Player* const p1, const Player* const p2) {
-	if (p1->symbol == symbol) {
-		return p1;
-	} else if (p2->symbol == symbol) {
-		return p2;
+static const Player* whoHasThisSymbol(char symbol, const Player& p1, const Player&  p2) {
+	if (p1.symbol == symbol) {
+		return &p1;
+	} else if (p2.symbol == symbol) {
+		return &p2;
 	}
 	return nullptr;
 }
@@ -141,7 +141,7 @@ static VictorySet findVictorySet(char board[3][3]) {
 }
 
 // It returns the winner
-static const Player* checkVictory(char board[3][3], const Player* const p1, const Player* const p2) {
+static const Player* checkVictory(char board[3][3], const Player& p1, const Player& p2) {
 	VictorySet victorySet{ findVictorySet(board) };
 	if (victorySet.valid) {
 		return whoHasThisSymbol(board[toRow(victorySet.singleIndex0)][toColumn(victorySet.singleIndex0)], p1, p2);
@@ -161,12 +161,12 @@ static bool isBoardComplete(char board[3][3]) {
 }
 
 // Tic Tac Toe game loop and main controller
-Info runTicTacToe(const Player* const p1, const Player* const p2) {
+Info runTicTacToe(const Player& p1, const Player& p2) {
 	
 	Info info{ nullptr, nullptr };
 
 	const Player* winner{ nullptr };
-	const Player* turn{ p1 };
+	const Player* turn{ &p1 };
 
 	char board[3][3]{
 		{Empty, Empty, Empty},
@@ -179,7 +179,7 @@ Info runTicTacToe(const Player* const p1, const Player* const p2) {
 		header("Tic Tac Toe");
 
 		drawBoard(board);
-		getInput(board, turn);
+		getInput(board, *turn);
 
 		winner = checkVictory(board, p1, p2);
 		if (winner != nullptr) { // A winner has been found.
@@ -189,14 +189,14 @@ Info runTicTacToe(const Player* const p1, const Player* const p2) {
 			VictorySet set{ findVictorySet(board) };
 			subdrawBoard(board, set.singleIndex0, set.singleIndex1, set.singleIndex2);
 
-			if (!isComputer(winner)) {
+			if (!isComputer(*winner)) {
 				std::cout << "Well done, " << winner->name << "! You win the game.\n";
 			} else {
 				std::cout << "Well done, " << winner->name << "! I win the game.\n";
 			}
 
 			info.winner = winner;
-			info.loser = (winner == p1 ? p2 : p1);
+			info.loser = &(winner == &p1 ? p2 : p1);
 
 			break;
 
@@ -212,7 +212,7 @@ Info runTicTacToe(const Player* const p1, const Player* const p2) {
 		}
 
 		// otherwise, the game continues...
-		turn = (turn == p1 ? p2 : p1);
+		turn = &(turn == &p1 ? p2 : p1);
 
 	} while (true);
 

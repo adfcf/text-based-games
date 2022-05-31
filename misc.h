@@ -22,6 +22,6 @@ void biggestDivision();
 void clearScreen();
 
 // Other
-bool isComputer(const Player* const player);
+bool isComputer(const Player& player);
 void notYet();
 

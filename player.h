@@ -3,8 +3,8 @@
 
 struct Player {
 	std::string name{};
-	int id{ 0 };
 	char symbol{ 0 };
+	int id{ 0 };
 	int victories{ 0 };
 	int defeats{ 0 };
 	int draws{ 0 };
