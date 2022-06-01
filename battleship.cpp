@@ -180,3 +180,4 @@ Info runBattleship(const Player& p1, const Player& p2) {
 	return info;
 
 }
+

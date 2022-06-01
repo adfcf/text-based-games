@@ -108,11 +108,7 @@ int main() {
 
     header();
 
-    std::cout << "Welcome! There are " << availableGames() << " little text-based games here.\n";
-    std::cout << "Before you can play them, you need to register the players.\n";
-
     registeredPlayers.push_back(Player{ "Computer", 'C', 0});
-    std::cout << "\n- I have just registered myself as the Player 0, right?\n\n";
 
     registerPlayers(registeredPlayers);
     showRegisteredPlayers(registeredPlayers);
@@ -146,9 +142,8 @@ int main() {
         case Game::Hangman:
             std::cout << "HANGMAN selected! Now choose the players who are going to play.\n";
             bigDivision();
-            runGuess(selectPlayer(registeredPlayers), selectPlayer(registeredPlayers));
+            runHangman(selectPlayer(registeredPlayers), selectPlayer(registeredPlayers));
             playedOneGame = true;
-            notYet();
             break;
         }
 

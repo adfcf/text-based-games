@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="battleship.cpp" />
     <ClCompile Include="guess.cpp" />
+    <ClCompile Include="hangman.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="misc.cpp" />
     <ClCompile Include="tic_tac_toe.cpp" />
